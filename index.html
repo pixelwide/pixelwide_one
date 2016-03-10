@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{Title}{block:PostSummary} — {PostSummary}{/block:PostSummary}</title>    {block:Description}
+    <meta name="description" content="{MetaDescription}">{/block:Description}
+    <link rel="shortcut icon" href="{Favicon}">
+    <link rel="alternate" type="application/rss+xml" href="{RSS}">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1">
+    <meta name="text:Analytics" content="">
+    <meta name="text:Disqus Shortname" content="">    {block:IfDisqusShortname}
+    <script type="text/javascript">disqusEnabled = true;disqusShortname = "{text:Disqus Shortname}";</script>{/block:IfDisqusShortname}
+    <link rel="stylesheet" type="text/css" href="http://static.tumblr.com/i21wc39/5sxmn9bjr/paperstacks_theme.css">
+    <!-- COLORS-->
+    <meta name="color:HeaderForeground" content="#211f1f">
+    <meta name="font:BodyFont" content="'Helvetica Neue', Helvetica, Arial, sans-serif">
+    <meta name="image:HeaderBackground" content="">    {block:IfHeaderBackgroundImage}
+    <style type="text/css">#header{ background-image: url({image:HeaderBackground}); background-repeat: repeat; }</style>{/block:IfHeaderBackgroundImage}
+    <!-- vanilla-->
+    <meta name="if:PlainWhite" content="0">
+    <style type="text/css">
+      body { font-family: {font:BodyFont};}
+      {block:IfPlainWhite}
+      html { background-color: #fff; }
+      a { color: #0F0E0F; }
+      #page { color: #211f1f; }
+      #pagination-posts a { color: #fff; background-color: #211f1f;}
+      #header{ color: {color:HeaderForeground}; }
+      #header a, #features a { color: {color:HeaderForeground}; }
+      #features .pagination a { color: #fff; background-color: #211f1f;}
+      #features .navigation .on {color: #666;}
+      #nav-bottom { color: #211f1f; }
+      #nav-bottom a { color: #211f1f; }
+      .link-text { color: #211f1f; border-bottom: 2px solid #0F0E0F; }
+      ::selection { background: #211f1f; color: #fffcf5;}
+      {/block:IfPlainWhite}
+      {block:IfNotPlainWhite}
+      html { background-color: #211f1f; }
+      a { color: #c94a00; }
+      #page { background-color: #fffcf5; color: #211f1f; }
+      #pagination-posts a { color: #fffcf5; background-color: #211f1f;}
+      #header{ background-color: #d6d2cc; color: {color:HeaderForeground}; }
+      #header a, #features a { color: {color:HeaderForeground}; }
+      #features .pagination a { color: #d6d2cc; background-color: #211f1f;}
+      #features .navigation .on {color: #c94a00;}
+      #nav-bottom { background-color: #211f1f; color: #fff; }
+      #nav-bottom a { color: #fff; }
+      .link-text { color: #211f1f; border-bottom: 2px solid #c94a00; }
+      ::selection { background: #c94a00; color: #fffcf5;}
+      {/block:IfNotPlainWhite}
+      {CustomCSS}
+    </style>
+  </head>
+  <body class="{block:IndexPage}index{/block:IndexPage} {block:PermalinkPage}show{/block:PermalinkPage} {block:TagPage}tag_page{/block:TagPage}">
+    <div id="extra_div_1"></div>
+    <div id="page">
+      <div id="extra_div_2"></div>
+      <div id="header">
+        <div id="nav_wrap">
+          <h1><a href="/">{Title}</a></h1>
+          <div id="nav-top" class="nav">
+            <ul class="menu">{block:Pages}
+              <li class="page {Label}"><a href="{URL}" title="{Label}">{Label}</a></li>              {/block:Pages}
+                            {block:AskEnabled}
+              <li><a href="/ask">{AskLabel}</a></li>{/block:AskEnabled}
+              <li class="tumblr-archive"><a href="/archive">Archive</a></li>
+            </ul>
+          </div>          {block:TagPage}
+          <h2 class="tag">{Tag}</h2>{/block:TagPage}
+        </div>
+      </div>
+      <!-- #header-->{block:Description}
+      <div id="description">
+        <div class="description-text">{Description}</div>
+      </div>      {/block:Description}
+      <div id="posts-wrap" class="wrap">
+        <ul id="posts" class="{block:IndexPage}index{/block:IndexPage} {block:PermalinkPage}show{/block:PermalinkPage}">{block:Posts}
+          <li id="post_{PostID}" data-permalink="{Permalink}" data-post-type="{PostType}" class="post{block:Text} text{/block:Text}{block:Photo} photo{/block:Photo}{block:Photoset} photoset{/block:Photoset}{block:Quote} quote{/block:Quote}{block:Link} link{/block:Link}{block:Chat} chat{/block:Chat}{block:Video} video{/block:Video}{block:Audio} audio{/block:Audio}{block:Answer} answer{/block:Answer}{block:PermalinkPage} permalink_page{/block:PermalinkPage} {TagsAsClasses}">
+            <div class="post-pad">
+              <div class="post-meta">{block:Title}
+                <h3 class="post-title"><a href="{Permalink}">{Title}</a></h3>{/block:Title}
+                                {block:Date}
+                <div class="date date-top"><a href="{Permalink}"><span class="days">{Month} {DayOfMonth}, {Year}</span><span class="time">{12Hour}:{Minutes} {AmPm}</span></a></div>                {/block:Date}
+              </div>
+              <div class="post-content">{block:Photo}
+                <div class="photo-permalink-container">{block:IndexPage}<a href="{Permalink}" class="photo-permalink">{/block:IndexPage}{block:PermalinkPage}{LinkOpenTag}{/block:PermalinkPage}<img src="{block:IndexPage}{PhotoURL-400}{/block:IndexPage}{block:PermalinkPage}{PhotoURL-HighRes}{/block:PermalinkPage}" alt="{PhotoAlt}" data-highres="{PhotoURL-HighRes}" class="post-image"></a></div>                {/block:Photo}
+                                {block:Photoset}
+                <div data-permalink="{block:IndexPage}{Permalink}{/block:IndexPage}{block:PermalinkPage}{PhotoURL-HighRes}{/block:PermalinkPage}" class="photoset_wrap">{block:Photos}<a href="{Permalink}" class="photoset_photo"><img src="{block:IndexPage}{PhotoURL-400}{/block:IndexPage}{block:PermalinkPage}{PhotoURL-HighRes}{/block:PermalinkPage}" data-highres="{PhotoURL-HighRes}" class="post-image"></a>                  {/block:Photos}</div>                {/block:Photoset}
+                                {block:Video}
+                <div class="video-player">{Video-500}</div>                {/block:Video}
+                                {block:Audio}
+                <div {block:artist}data-artist="{URLEncodedArtist}{/block:Artist}" {block:trackname}data-track="{URLEncodedTrackName}" {block:album}data-album="{URLEncodedAlbum}{/block:Album}" {block:albumart}data-art="{AlbumArtURL}" {="" block:albumart}="" class="audio-player">{block:Artist}
+                  <h3 class="id3 artist-name">{Artist}</h3>{/block:Artist}
+                                    {block:TrackName}
+                  <h4 class="id3 song-name">{TrackName}</h4>{/block:TrackName}
+                                    {block:Album}
+                  <h5 class="id3 album-name">{Album}</h5>{/block:Album}
+                                    {AudioPlayerBlack}
+                </div>                {block:AlbumArt}
+                <div class="audio-cover"><img src="{AlbumArtURL}"></div>{/block:AlbumArt}
+                                {/block:Audio}
+                                {block:Text}
+                <div class="text-body">{Body}</div>                {/block:Text}
+                                {block:Quote}
+                <div class="quote-text">{Quote}</div>                {block:Source}
+                <div class="quote-source">{Source}</div>{/block:Source}
+                                {/block:Quote}
+                                {block:Link}<a href="{URL}" {target}="" class="link-text">{Name}</a>                {block:Description}
+                <div class="link-description">{Description}</div>{/block:Description}
+                                {/block:Link}
+                                {block:Chat}
+                <ul class="chat-messages">{block:Lines}
+                  <li class="{Alt} chat-user_{UserNumber}">{block:Label}<span class="chat-label">{Label}</span>{/block:Label}
+                    <p class="chat-line">{Line}</p>
+                  </li>                  {/block:Lines}
+                </ul>                {/block:Chat}
+                                {block:Answer}
+                <div class="question">{Question}</div>
+                <div class="asker_container">{Asker}</div>                {block:PermalinkPage}
+                <div class="answer">{Answer}</div>{/block:PermalinkPage}
+                                {/block:Answer}
+                                {block:Caption}
+                <div class="caption">{Caption}</div>{/block:Caption}
+              </div>
+              <div class="social tmblr-social"><a href="#" data-id="{PostID}" data-reblog-url="{ReblogURL}" class="like tmblr-like">Like</a><a href="{ReblogURL}" class="reblog tmblr-reblog">Reblog</a></div>              {block:HasTags}
+              <div class="tags">
+                <h4>Tags</h4>
+                <ul class="tags-list">{block:Tags}
+                  <li class="tag"><a href="{TagURL}">{Tag}</a></li>                  {/block:Tags}
+                </ul>
+              </div>              {/block:HasTags}
+                            {block:ContentSource}
+              <div class="source"><span class="source-label">via</span><a href="{SourceURL}" class="source-title">{SourceTitle}</a></div>              {/block:ContentSource}
+                            {block:IndexPage}<a href="{Permalink}" class="permalink">➜</a>{/block:IndexPage}
+            </div>
+            <!-- .post-pad-->
+          </li>          {/block:Posts}
+        </ul>
+        <!-- #posts-->{block:PermalinkPagination}
+        <div id="pagination-posts" class="pagination">
+          <div class="pagination-links">{block:NextPost}<a href="{NextPost}" class="pagination-newer">◀</a>{/block:NextPost}
+                        {block:PreviousPost}<a href="{PreviousPost}" class="pagination-older">▶</a>{/block:PreviousPost}
+          </div>
+        </div>        {/block:PermalinkPagination}
+      </div>
+      <!-- #posts-wrap-->{block:Pagination}
+      <div id="pagination-pages" class="pagination">
+        <div class="pagination-links">{block:PreviousPage}<a href="{PreviousPage}" class="pagination-newer">◀ Newer</a>{/block:PreviousPage}<a href="/archive" class="pagination-archive">Archive</a>          {block:NextPage}<a href="{NextPage}" class="pagination-older">Older ▶</a>{/block:NextPage}</div>
+      </div>      {/block:Pagination}
+            {block:PermalinkPage}
+      <div class="note-wrap">{block:Posts}{block:NoteCount}
+        <div class="notecount">{NoteCountWithLabel}</div>{/block:NoteCount}{/block:Posts}
+                {block:PostNotes}{PostNotes}{/block:PostNotes}
+      </div>			{block:IfDisqusShortname}
+      <!-- DISQUS COMMENTS-->
+      <div id="disqus">
+        <h2>{lang:Recent comments}</h2>
+        <script type="text/javascript">var disqus_url = "{Permalink}"; var disqus_title ="{block:PostTitle}{PostTitle}{/block:PostTitle}";</script>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          var disqus_identifier = {PostID};
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'http://' + disqusShortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript={text:DisqusShortname}">comments powered by Disqus.</a></noscript>				{lang:Blog comments powered by Disqus 2}
+      </div>
+      <!-- /#disqus-->{/block:IfDisqusShortname}
+      {/block:PermalinkPage}
+      <div id="nav-bottom" class="nav">
+        <ul class="menu">{block:Pages}
+          <li class="page {Label}"><a href="{URL}" title="{Label}">{Label}</a></li>          {/block:Pages}
+          <li class="tumblr-archive"><a href="/archive">Archive</a></li>
+        </ul>
+        <div id="footerInfo">
+          <div class="sized">{block:Description}
+            <p>{Description}</p>{/block:Description}
+            <p>Paper Stacks, a collaboration by <a href="http://www.fiftythree.com/tumblr/via/theme">FiftyThree</a> and <a href="http://www.alldayeveryday.com/">ALLDAYEVERYDAY</a>.</p>
+          </div>
+        </div>
+      </div>
+      <div id="extra_div_3"></div>
+    </div>
+    <!-- #page-->
+    <div id="extra_div_4"></div>
+    <script src="http://static.tumblr.com/i21wc39/CQPmn9bkv/paperstacks_theme.js"></script>    {block:IfAnalytics}
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', '{text:Analytics}']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>    {/block:IfAnalytics}
+  </body>
+</html>

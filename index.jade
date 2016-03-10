@@ -1,0 +1,282 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title {Title}{block:PostSummary} — {PostSummary}{/block:PostSummary}
+    |     {block:Description}
+    meta(name='description', content='{MetaDescription}')
+    | {/block:Description}
+    link(rel='shortcut icon', href='{Favicon}')
+    link(rel='alternate', type='application/rss+xml', href='{RSS}')
+    meta(name='viewport', content='width=device-width, maximum-scale=1, minimum-scale=1')
+    meta(name='text:Analytics', content='')
+    meta(name='text:Disqus Shortname', content='')
+    |     {block:IfDisqusShortname}
+    script(type='text/javascript').
+      disqusEnabled = true;disqusShortname = "{text:Disqus Shortname}";
+    | {/block:IfDisqusShortname}
+    link(rel='stylesheet', type='text/css', href='http://static.tumblr.com/i21wc39/5sxmn9bjr/paperstacks_theme.css')
+    // COLORS
+    meta(name='color:HeaderForeground', content='#211f1f')
+    meta(name='font:BodyFont', content="'Helvetica Neue', Helvetica, Arial, sans-serif")
+    meta(name='image:HeaderBackground', content='')
+    |     {block:IfHeaderBackgroundImage}
+    style(type='text/css').
+      #header{ background-image: url({image:HeaderBackground}); background-repeat: repeat; }
+    | {/block:IfHeaderBackgroundImage}
+    // vanilla
+    meta(name='if:PlainWhite', content='0')
+    style(type='text/css').
+      body { font-family: {font:BodyFont};}
+      {block:IfPlainWhite}
+      html { background-color: #fff; }
+      a { color: #0F0E0F; }
+      #page { color: #211f1f; }
+      #pagination-posts a { color: #fff; background-color: #211f1f;}
+      #header{ color: {color:HeaderForeground}; }
+      #header a, #features a { color: {color:HeaderForeground}; }
+      #features .pagination a { color: #fff; background-color: #211f1f;}
+      #features .navigation .on {color: #666;}
+      #nav-bottom { color: #211f1f; }
+      #nav-bottom a { color: #211f1f; }
+      .link-text { color: #211f1f; border-bottom: 2px solid #0F0E0F; }
+      ::selection { background: #211f1f; color: #fffcf5;}
+      {/block:IfPlainWhite}
+      {block:IfNotPlainWhite}
+      html { background-color: #211f1f; }
+      a { color: #c94a00; }
+      #page { background-color: #fffcf5; color: #211f1f; }
+      #pagination-posts a { color: #fffcf5; background-color: #211f1f;}
+      #header{ background-color: #d6d2cc; color: {color:HeaderForeground}; }
+      #header a, #features a { color: {color:HeaderForeground}; }
+      #features .pagination a { color: #d6d2cc; background-color: #211f1f;}
+      #features .navigation .on {color: #c94a00;}
+      #nav-bottom { background-color: #211f1f; color: #fff; }
+      #nav-bottom a { color: #fff; }
+      .link-text { color: #211f1f; border-bottom: 2px solid #c94a00; }
+      ::selection { background: #c94a00; color: #fffcf5;}
+      {/block:IfNotPlainWhite}
+      {CustomCSS}
+  body(class='{block:IndexPage}index{/block:IndexPage} {block:PermalinkPage}show{/block:PermalinkPage} {block:TagPage}tag_page{/block:TagPage}')
+    #extra_div_1
+    #page
+      #extra_div_2
+      #header
+        #nav_wrap
+          h1
+            a(href='/')
+              | {Title}
+          #nav-top.nav
+            ul.menu
+              | {block:Pages}
+              li.page(class='{Label}')
+                a(href='{URL}', title='{Label}') {Label}
+              |               {/block:Pages}
+              |               {block:AskEnabled}
+              li
+                a(href='/ask') {AskLabel}
+              | {/block:AskEnabled}
+              li.tumblr-archive
+                a(href='/archive') Archive
+          |           {block:TagPage}
+          h2.tag {Tag}
+          | {/block:TagPage}
+      // #header
+      | {block:Description}
+      #description
+        .description-text {Description}
+      |       {/block:Description}
+      #posts-wrap.wrap
+        ul#posts(class='{block:IndexPage}index{/block:IndexPage} {block:PermalinkPage}show{/block:PermalinkPage}')
+          | {block:Posts}
+          li(id='post_{PostID}', class='post{block:Text} text{/block:Text}{block:Photo} photo{/block:Photo}{block:Photoset} photoset{/block:Photoset}{block:Quote} quote{/block:Quote}{block:Link} link{/block:Link}{block:Chat} chat{/block:Chat}{block:Video} video{/block:Video}{block:Audio} audio{/block:Audio}{block:Answer} answer{/block:Answer}{block:PermalinkPage} permalink_page{/block:PermalinkPage} {TagsAsClasses}', data-permalink='{Permalink}', data-post-type='{PostType}')
+            .post-pad
+              .post-meta
+                | {block:Title}
+                h3.post-title
+                  a(href='{Permalink}') {Title}
+                | {/block:Title}
+                |                 {block:Date}
+                .date.date-top
+                  a(href='{Permalink}')
+                    span.days {Month} {DayOfMonth}, {Year}
+                    span.time {12Hour}:{Minutes} {AmPm}
+                |                 {/block:Date}
+              .post-content
+                | {block:Photo}
+                .photo-permalink-container
+                  | {block:IndexPage}
+                  a.photo-permalink(href='{Permalink}')
+                    | {/block:IndexPage}{block:PermalinkPage}{LinkOpenTag}{/block:PermalinkPage}
+                    img.post-image(src='{block:IndexPage}{PhotoURL-400}{/block:IndexPage}{block:PermalinkPage}{PhotoURL-HighRes}{/block:PermalinkPage}', alt='{PhotoAlt}', data-highres='{PhotoURL-HighRes}')
+                |                 {/block:Photo}
+                |                 {block:Photoset}
+                .photoset_wrap(data-permalink='{block:IndexPage}{Permalink}{/block:IndexPage}{block:PermalinkPage}{PhotoURL-HighRes}{/block:PermalinkPage}')
+                  | {block:Photos}
+                  a.photoset_photo(href='{Permalink}')
+                    img.post-image(src='{block:IndexPage}{PhotoURL-400}{/block:IndexPage}{block:PermalinkPage}{PhotoURL-HighRes}{/block:PermalinkPage}', data-highres='{PhotoURL-HighRes}')
+                  |                   {/block:Photos}
+                |                 {/block:Photoset}
+                |                 {block:Video}
+                .video-player {Video-500}
+                |                 {/block:Video}
+                |                 {block:Audio}
+                .audio-player({block:artist}data-artist='{URLEncodedArtist}{/block:Artist}', {block:trackname}data-track='{URLEncodedTrackName}', {block:album}data-album='{URLEncodedAlbum}{/block:Album}', {block:albumart}data-art='{AlbumArtURL}', {='', block:albumart}='')
+                  | {block:Artist}
+                  h3.id3.artist-name {Artist}
+                  | {/block:Artist}
+                  |                   {block:TrackName}
+                  h4.id3.song-name {TrackName}
+                  | {/block:TrackName}
+                  |                   {block:Album}
+                  h5.id3.album-name {Album}
+                  | {/block:Album}
+                  |                   {AudioPlayerBlack}
+                |                 {block:AlbumArt}
+                .audio-cover
+                  img(src='{AlbumArtURL}')
+                | {/block:AlbumArt}
+                |                 {/block:Audio}
+                |                 {block:Text}
+                .text-body
+                  | {Body}
+                |                 {/block:Text}
+                |                 {block:Quote}
+                .quote-text {Quote}
+                |                 {block:Source}
+                .quote-source {Source}
+                | {/block:Source}
+                |                 {/block:Quote}
+                |                 {block:Link}
+                a.link-text(href='{URL}', {target}='') {Name}
+                |                 {block:Description}
+                .link-description {Description}
+                | {/block:Description}
+                |                 {/block:Link}
+                |                 {block:Chat}
+                ul.chat-messages
+                  | {block:Lines}
+                  li(class='{Alt} chat-user_{UserNumber}')
+                    | {block:Label}
+                    span.chat-label {Label}
+                    | {/block:Label}
+                    p.chat-line {Line}
+                  |                   {/block:Lines}
+                |                 {/block:Chat}
+                |                 {block:Answer}
+                .question
+                  | {Question}
+                .asker_container {Asker}
+                |                 {block:PermalinkPage}
+                .answer {Answer}
+                | {/block:PermalinkPage}
+                |                 {/block:Answer}
+                |                 {block:Caption}
+                .caption {Caption}
+                | {/block:Caption}
+              .social.tmblr-social
+                a.like.tmblr-like(href='#', data-id='{PostID}', data-reblog-url='{ReblogURL}') Like
+                a.reblog.tmblr-reblog(href='{ReblogURL}') Reblog
+              |               {block:HasTags}
+              .tags
+                h4 Tags
+                ul.tags-list
+                  | {block:Tags}
+                  li.tag
+                    a(href='{TagURL}') {Tag}
+                  |                   {/block:Tags}
+              |               {/block:HasTags}
+              |               {block:ContentSource}
+              .source
+                span.source-label via
+                a.source-title(href='{SourceURL}') {SourceTitle}
+              |               {/block:ContentSource}
+              |               {block:IndexPage}
+              a.permalink(href='{Permalink}') ➜
+              | {/block:IndexPage}
+            // .post-pad
+          |           {/block:Posts}
+        // #posts
+        | {block:PermalinkPagination}
+        #pagination-posts.pagination
+          .pagination-links
+            | {block:NextPost}
+            a.pagination-newer(href='{NextPost}') ◀
+            | {/block:NextPost}
+            |             {block:PreviousPost}
+            a.pagination-older(href='{PreviousPost}') ▶
+            | {/block:PreviousPost}
+        |         {/block:PermalinkPagination}
+      // #posts-wrap
+      | {block:Pagination}
+      #pagination-pages.pagination
+        .pagination-links
+          | {block:PreviousPage}
+          a.pagination-newer(href='{PreviousPage}') ◀ Newer
+          | {/block:PreviousPage}
+          a.pagination-archive(href='/archive') Archive
+          |           {block:NextPage}
+          a.pagination-older(href='{NextPage}') Older ▶
+          | {/block:NextPage}
+      |       {/block:Pagination}
+      |       {block:PermalinkPage}
+      .note-wrap
+        | {block:Posts}{block:NoteCount}
+        .notecount {NoteCountWithLabel}
+        | {/block:NoteCount}{/block:Posts}
+        |         {block:PostNotes}{PostNotes}{/block:PostNotes}
+      | 			{block:IfDisqusShortname}
+      // DISQUS COMMENTS
+      #disqus
+        h2 {lang:Recent comments}
+        script(type='text/javascript').
+          var disqus_url = "{Permalink}"; var disqus_title ="{block:PostTitle}{PostTitle}{/block:PostTitle}";
+        #disqus_thread
+        script(type='text/javascript').
+          var disqus_identifier = {PostID};
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'http://' + disqusShortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        noscript
+          | Please enable JavaScript to view the 
+          a(href='http://disqus.com/?ref_noscript={text:DisqusShortname}') comments powered by Disqus.
+        | 				{lang:Blog comments powered by Disqus 2}
+      // /#disqus
+      | {/block:IfDisqusShortname}
+      | {/block:PermalinkPage}
+      #nav-bottom.nav
+        ul.menu
+          | {block:Pages}
+          li.page(class='{Label}')
+            a(href='{URL}', title='{Label}') {Label}
+          |           {/block:Pages}
+          li.tumblr-archive
+            a(href='/archive') Archive
+        #footerInfo
+          .sized
+            | {block:Description}
+            p {Description}
+            | {/block:Description}
+            p
+              | Paper Stacks, a collaboration by 
+              a(href='http://www.fiftythree.com/tumblr/via/theme') FiftyThree
+              |  and 
+              a(href='http://www.alldayeveryday.com/') ALLDAYEVERYDAY
+              | .
+      #extra_div_3
+    // #page
+    #extra_div_4
+    script(src='http://static.tumblr.com/i21wc39/CQPmn9bkv/paperstacks_theme.js')
+    |     {block:IfAnalytics}
+    script(type='text/javascript').
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', '{text:Analytics}']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    |     {/block:IfAnalytics}
